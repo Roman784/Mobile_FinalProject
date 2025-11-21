@@ -42,8 +42,4 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="VisualLintButtonSize"/>
 
-    <include
-        android:id="@+id/header"
-        layout="@layout/header_layout"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

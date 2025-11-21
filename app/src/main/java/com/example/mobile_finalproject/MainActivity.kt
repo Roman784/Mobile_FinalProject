@@ -15,17 +15,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        var addDeckButton = findViewById<Button>(R.id.btnAddDeck)
+        val btnAddDeck = findViewById<Button>(R.id.btnAddDeck)
 
         // Add new deck.
-        addDeckButton.setOnClickListener {
+        btnAddDeck.setOnClickListener {
             openEditDeckActivity(-1);
         }
 
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         decks.forEach { deck ->
             val itemView = LayoutInflater.from(this)
-                .inflate(R.layout.deck_selection_item, container, false)
+                .inflate(R.xml.deck_selection_view, container, false)
 
             val textView = itemView.findViewById<TextView>(R.id.tvName)
             textView.text = deck.name
