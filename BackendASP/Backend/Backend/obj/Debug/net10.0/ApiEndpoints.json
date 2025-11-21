@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "Backend.Controllers.DecksController",
-    "Method": "GetUsers",
+    "Method": "GetDecks",
     "RelativePath": "api/Decks",
     "HttpMethod": "GET",
     "IsController": true,
@@ -21,7 +21,7 @@
   },
   {
     "ContainingType": "Backend.Controllers.DecksController",
-    "Method": "CreateUser",
+    "Method": "CreateDeck",
     "RelativePath": "api/Decks",
     "HttpMethod": "POST",
     "IsController": true,
@@ -47,7 +47,7 @@
   },
   {
     "ContainingType": "Backend.Controllers.DecksController",
-    "Method": "GetUser",
+    "Method": "GetDeck",
     "RelativePath": "api/Decks/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -73,7 +73,7 @@
   },
   {
     "ContainingType": "Backend.Controllers.DecksController",
-    "Method": "UpdateUser",
+    "Method": "UpdateDeck",
     "RelativePath": "api/Decks/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -94,7 +94,7 @@
   },
   {
     "ContainingType": "Backend.Controllers.DecksController",
-    "Method": "DeleteUser",
+    "Method": "DeleteDeck",
     "RelativePath": "api/Decks/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,

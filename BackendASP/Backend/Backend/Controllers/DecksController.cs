@@ -14,13 +14,13 @@ namespace Backend.Controllers
         };
 
         [HttpGet]
-        public ActionResult<IEnumerable<Deck>> GetUsers()
+        public ActionResult<IEnumerable<Deck>> GetDecks()
         {
             return Ok(_decks);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Deck> GetUser(int id)
+        public ActionResult<Deck> GetDeck(int id)
         {
             var user = _decks.FirstOrDefault(u => u.Id == id);
 
@@ -33,16 +33,16 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Deck> CreateUser(Deck deck)
+        public ActionResult<Deck> CreateDeck(Deck deck)
         {
             deck.Id = _decks.Max(u => u.Id) + 1;
             _decks.Add(deck);
 
-            return CreatedAtAction(nameof(GetUser), new { id = deck.Id }, deck);
+            return CreatedAtAction(nameof(GetDeck), new { id = deck.Id }, deck);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, Deck updatedDeck)
+        public IActionResult UpdateDeck(int id, Deck updatedDeck)
         {
             var user = _decks.FirstOrDefault(u => u.Id == id);
 
@@ -57,7 +57,7 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public IActionResult DeleteDeck(int id)
         {
             var user = _decks.FirstOrDefault(u => u.Id == id);
 
