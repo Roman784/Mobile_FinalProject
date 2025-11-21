@@ -8,16 +8,42 @@
     tools:context=".MainActivity"
     android:background="@color/background">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="128dp"
+        android:paddingTop="128dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAccessibility="no">
+
+        <LinearLayout
+            android:id="@+id/decksContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btnAddDeck"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/green"
+        android:text="@string/add_deck"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="VisualLintButtonSize"/>
+
     <include
         android:id="@+id/header"
         layout="@layout/header_layout"/>
-
-    <include
-        android:id="@+id/header"
-        layout="@layout/deck_selection_layout"/>
-
-    <include
-        android:id="@+id/header"
-        layout="@layout/card_selection_layout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
