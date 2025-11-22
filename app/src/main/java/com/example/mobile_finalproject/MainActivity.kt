@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import com.example.mobile_finalproject.models.Card
 import com.example.mobile_finalproject.models.Deck
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +31,7 @@ class MainActivity : BaseActivity() {
 
         // Add new deck.
         btnAddDeck.setOnClickListener {
-            openEditDeckActivity(-1, "");
+            createNewDeck()
         }
 
         createFakeDecks()
@@ -51,6 +52,11 @@ class MainActivity : BaseActivity() {
             } catch (_: Exception) {
             }
         }
+    }
+
+    private fun createNewDeck() {
+        val newId = decks.count() + 1 // TODO: From server.
+        openEditDeckActivity(newId, "")
     }
 
     private fun createDeckViews(decks: List<Deck>) {
