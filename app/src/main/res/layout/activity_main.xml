@@ -8,14 +8,15 @@
     tools:context=".MainActivity"
     android:background="@color/background">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="128dp"
-        android:paddingTop="128dp"
+        android:layout_height="0dp"
         android:clipToPadding="false"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toTopOf="@id/btnAddDeck"
         app:layout_constraintTop_toTopOf="parent"
-        android:importantForAccessibility="no">
+        android:paddingTop="@dimen/first_offset"
+        android:paddingBottom="24dp">
 
         <LinearLayout
             android:id="@+id/decksContainer"
@@ -25,21 +26,22 @@
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
     <Button
         android:id="@+id/btnAddDeck"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/common_button_height"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="@dimen/last_offset"
         android:backgroundTint="@color/green"
+        android:fontFamily="@font/inder"
         android:text="@string/add_deck"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="@dimen/common_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="VisualLintButtonSize"/>
+        tools:ignore="VisualLintButtonSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,17 @@ namespace Backend.Controllers
         private static List<Deck> _decks = new List<Deck>
         {
             new Deck { Id = 1, Name = "Test Deck 1" },
-            new Deck { Id = 2, Name = "Test Deck 2" }
+            new Deck { Id = 2, Name = "Test Deck 2" },
+            new Deck { Id = 2, Name = "Test Deck 3" },
+            new Deck { Id = 2, Name = "Test Deck 4" },
+            new Deck { Id = 2, Name = "Test Deck 5" },
+            new Deck { Id = 2, Name = "Test Deck 6" },
+            new Deck { Id = 2, Name = "Test Deck 7" },
+            new Deck { Id = 2, Name = "Test Deck 8" },
+            new Deck { Id = 2, Name = "Test Deck 9" },
+            new Deck { Id = 2, Name = "Test Deck 10" },
+            new Deck { Id = 2, Name = "Test Deck 11" },
+            new Deck { Id = 2, Name = "Test Deck 12" }
         };
 
         [HttpGet]

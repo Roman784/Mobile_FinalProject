@@ -22,7 +22,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun setupHeader() {
-        headerView = LayoutInflater.from(this).inflate(R.xml.header_view, null)
+        headerView = LayoutInflater.from(this).inflate(R.layout.header_view, null)
 
         btnHome = headerView.findViewById(R.id.btnHome)
         btnPlus = headerView.findViewById(R.id.btnPlus)
@@ -34,7 +34,9 @@ abstract class BaseActivity : AppCompatActivity() {
         params.gravity = Gravity.TOP
 
         val rootView = findViewById<ViewGroup>(android.R.id.content)
-        rootView.addView(headerView, params)
+        val contentView = rootView.getChildAt(0) as? ViewGroup
+
+        contentView?.addView(headerView, 0, params)
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             headerView.elevation = 8f

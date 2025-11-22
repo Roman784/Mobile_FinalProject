@@ -4,7 +4,8 @@
     android:layout_height="84dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="16dp"
-    android:background="@drawable/shape_panel">
+    android:background="@drawable/shape_panel"
+    android:layout_marginBottom="24dp">
 
     <TextView
         android:id="@+id/tvTerm"
@@ -14,7 +15,7 @@
         android:fontFamily="@font/inder"
         android:text="Term..."
         android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:textSize="@dimen/common_text_size"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tvDefinition"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +39,7 @@
         android:fontFamily="@font/inder"
         android:text="Definition..."
         android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:textSize="@dimen/common_text_size"
         app:layout_constraintTop_toBottomOf="@id/tvTerm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
