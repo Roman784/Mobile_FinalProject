@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import com.example.mobile_finalproject.dialogs.EditCardDialog
 import com.example.mobile_finalproject.dialogs.EditCardDialog.EditCardDialogListener
@@ -21,6 +22,7 @@ import kotlinx.coroutines.withContext
 class EditDeckActivity : BaseActivity(), EditCardDialogListener {
     private  lateinit var cards: ArrayList<Card>
     private lateinit var cardsContainer: LinearLayout
+    private lateinit var scrollView: ScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,8 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
 
         cards = arrayListOf()
         cardsContainer = findViewById(R.id.cardsContainer)
+        scrollView = findViewById(R.id.scrollView)
+
         val edtDeckName = findViewById<EditText>(R.id.edtDeckName)
         val btnSave = findViewById<Button>(R.id.btnSave)
         val btnAddCard = findViewById<Button>(R.id.btnAddCard)
@@ -104,6 +108,10 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
         }
 
         cardsContainer.addView(itemView)
+
+        scrollView.post {
+            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+        }
     }
 
     private fun editCard(card: Card) {
