@@ -1,6 +1,7 @@
 package com.example.mobile_finalproject
 
 import RetrofitClient
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
@@ -41,7 +42,7 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
         }
 
         btnAddCard.setOnClickListener {
-            createEmptyCard()
+            createNewCard(deckId)
         }
 
         //loadCards(deckId)
@@ -65,15 +66,19 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
     }
 
     private fun save() {
-
+        // TODO: Save on the server.
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
-    private fun createEmptyCard() {
+    private fun createNewCard(deckId: Int) {
+        val newId = cards.count() + 1 // TODO: From server.
+        val card = Card(id = newId, deckId = deckId, term = "", definition = "")
+        cards.add(card)
 
-    }
-
-    private fun createCard(card: Card) {
-
+        val manager = supportFragmentManager
+        val myDialogFragment = EditCardDialog(card)
+        myDialogFragment.show(manager, "editCardDialog")
     }
 
     private fun createCardViews(cards: List<Card>) {
@@ -108,21 +113,33 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
     }
 
     override fun onReturnValue(card: Card) {
-        for (i in 0..cards.count())
-        {
-            if (cards[i].id == card.id)
-            {
-                cards[i] = card;
-                break
-            }
+        if (card.term.isEmpty() and card.definition.isEmpty()) {
+            onDelete(card)
+            return
         }
 
-        createCardViews(cards)
+        val idx = getCardIndexById(card.id)
+        if (idx >= 0) {
+            cards[idx] = card
+            createCardViews(cards)
+        }
     }
 
     override fun onDelete(card: Card) {
+        // TODO: Delete from server.
         cards.removeIf { c -> c.id == card.id }
         createCardViews(cards)
+    }
+
+    private fun getCardIndexById(id: Int): Int {
+        for (i in 0..cards.count())
+        {
+            if (cards[i].id == id)
+            {
+                return i
+            }
+        }
+        return -1
     }
 
     /////////////////////////////////////////////////////////////////////////////

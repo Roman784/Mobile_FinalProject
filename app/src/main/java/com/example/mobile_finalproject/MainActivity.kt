@@ -81,6 +81,8 @@ class MainActivity : BaseActivity() {
         startActivity(intent)
     }
 
+    /////////////////////////////////////////////////////////////////////////////
+
     private fun createFakeDecks() {
         for (i in 1..15) {
             decks.add(Deck(i, "fake $i"))
