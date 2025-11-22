@@ -49,7 +49,6 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
 
         loadDeckName(deckId)
         loadCards(deckId)
-        createFakeCards()
     }
 
     private fun loadDeckName(deckId: Int) {

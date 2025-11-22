@@ -46,7 +46,6 @@ class StudyActivity : BaseActivity() {
         }
 
         loadCards(deckId)
-        createFakeCards()
     }
 
     private fun loadCards(deckId: Int) {

@@ -27,14 +27,12 @@ namespace Backend.Controllers
             new Card { Id = 15, DeckId = 1, Term = "Card 15", Definition = "Definition 15" },
         };
 
-        // GET: api/cards
         [HttpGet]
         public ActionResult<IEnumerable<Card>> GetAllCards()
         {
             return Ok(_cards);
         }
 
-        // GET: api/cards/5
         [HttpGet("{id}")]
         public ActionResult<Card> GetCard(int id)
         {
@@ -48,7 +46,6 @@ namespace Backend.Controllers
             return Ok(card);
         }
 
-        // GET: api/cards/deck/1
         [HttpGet("deck/{deckId}")]
         public ActionResult<IEnumerable<Card>> GetCardsByDeck(int deckId)
         {
@@ -62,7 +59,6 @@ namespace Backend.Controllers
             return Ok(cards);
         }
 
-        // POST: api/cards
         [HttpPost]
         public ActionResult<Card> CreateCard(Card card)
         {
@@ -81,7 +77,6 @@ namespace Backend.Controllers
             return CreatedAtAction(nameof(GetCard), new { id = card.Id }, card);
         }
 
-        // PUT: api/cards/5
         [HttpPut("{id}")]
         public IActionResult UpdateCard(int id, Card updatedCard)
         {
@@ -99,7 +94,6 @@ namespace Backend.Controllers
             return NoContent();
         }
 
-        // DELETE: api/cards/5
         [HttpDelete("{id}")]
         public IActionResult DeleteCard(int id)
         {

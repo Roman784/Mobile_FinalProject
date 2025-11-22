@@ -10,4 +10,6 @@
     <string name="confirm">Confirm</string>
     <string name="next">Next</string>
     <string name="cards_list_empty">The list of cards is empty</string>
+    <string name="enter_term">Enter term...</string>
+    <string name="enter_definition">Enter definition...</string>
 </resources>

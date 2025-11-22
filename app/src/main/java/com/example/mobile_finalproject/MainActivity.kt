@@ -29,12 +29,10 @@ class MainActivity : BaseActivity() {
         decksContainer = findViewById(R.id.decksContainer)
         val btnAddDeck = findViewById<Button>(R.id.btnAddDeck)
 
-        // Add new deck.
         btnAddDeck.setOnClickListener {
             createNewDeck()
         }
 
-        createFakeDecks()
         loadDecks()
     }
 

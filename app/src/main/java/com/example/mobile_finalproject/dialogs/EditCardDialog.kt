@@ -20,7 +20,7 @@ class EditCardDialog(val card: Card) : DialogFragment() {
     private  lateinit var edtDefinition: EditText
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(requireActivity())
+        val builder = AlertDialog.Builder(requireActivity(), R.style.DialogTheme)
         val inflater = requireActivity().layoutInflater
         val layout = inflater.inflate(R.layout.edit_card_dialog, null)
 

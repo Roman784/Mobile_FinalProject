@@ -11,16 +11,16 @@ namespace Backend.Controllers
         {
             new Deck { Id = 1, Name = "Test Deck 1" },
             new Deck { Id = 2, Name = "Test Deck 2" },
-            new Deck { Id = 2, Name = "Test Deck 3" },
-            new Deck { Id = 2, Name = "Test Deck 4" },
-            new Deck { Id = 2, Name = "Test Deck 5" },
-            new Deck { Id = 2, Name = "Test Deck 6" },
-            new Deck { Id = 2, Name = "Test Deck 7" },
-            new Deck { Id = 2, Name = "Test Deck 8" },
-            new Deck { Id = 2, Name = "Test Deck 9" },
-            new Deck { Id = 2, Name = "Test Deck 10" },
-            new Deck { Id = 2, Name = "Test Deck 11" },
-            new Deck { Id = 2, Name = "Test Deck 12" }
+            new Deck { Id = 3, Name = "Test Deck 3" },
+            new Deck { Id = 4, Name = "Test Deck 4" },
+            new Deck { Id = 5, Name = "Test Deck 5" },
+            new Deck { Id = 6, Name = "Test Deck 6" },
+            new Deck { Id = 7, Name = "Test Deck 7" },
+            new Deck { Id = 8, Name = "Test Deck 8" },
+            new Deck { Id = 9, Name = "Test Deck 9" },
+            new Deck { Id = 10, Name = "Test Deck 10" },
+            new Deck { Id = 11, Name = "Test Deck 11" },
+            new Deck { Id = 12, Name = "Test Deck 12" }
         };
 
         [HttpGet]
@@ -32,14 +32,14 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public ActionResult<Deck> GetDeck(int id)
         {
-            var user = _decks.FirstOrDefault(u => u.Id == id);
+            var deck = _decks.FirstOrDefault(u => u.Id == id);
 
-            if (user == null)
+            if (deck == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(deck);
         }
 
         [HttpPost]
@@ -54,14 +54,14 @@ namespace Backend.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateDeck(int id, Deck updatedDeck)
         {
-            var user = _decks.FirstOrDefault(u => u.Id == id);
+            var deck = _decks.FirstOrDefault(u => u.Id == id);
 
-            if (user == null)
+            if (deck == null)
             {
                 return NotFound();
             }
 
-            user.Name = updatedDeck.Name;
+            deck.Name = updatedDeck.Name;
 
             return NoContent();
         }
@@ -69,14 +69,14 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteDeck(int id)
         {
-            var user = _decks.FirstOrDefault(u => u.Id == id);
+            var deck = _decks.FirstOrDefault(u => u.Id == id);
 
-            if (user == null)
+            if (deck == null)
             {
                 return NotFound();
             }
 
-            _decks.Remove(user);
+            _decks.Remove(deck);
             return NoContent();
         }
     }
