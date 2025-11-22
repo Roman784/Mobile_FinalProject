@@ -26,6 +26,7 @@
         </activity>
 
         <activity android:name=".EditDeckActivity" />
+        <activity android:name=".StudyActivity" />
     </application>
 
 </manifest>

@@ -72,9 +72,15 @@ class MainActivity : BaseActivity() {
         val textView = itemView.findViewById<TextView>(R.id.tvName)
         textView.text = deck.name
 
-        val editButton = itemView.findViewById<ImageButton>(R.id.btnPencil)
-        editButton.setOnClickListener {
+        val btnOpenDeck = itemView.findViewById<Button>(R.id.btnOpenDeck)
+        val btnEdit = itemView.findViewById<ImageButton>(R.id.btnPencil)
+
+        btnEdit.setOnClickListener {
             openEditDeckActivity(deck.id, deck.name)
+        }
+
+        btnOpenDeck.setOnClickListener {
+            openStudyActivity(deck.id)
         }
 
         decksContainer.addView(itemView)
@@ -84,6 +90,12 @@ class MainActivity : BaseActivity() {
         val intent = Intent(this, EditDeckActivity::class.java)
         intent.putExtra("DECK_ID", deckId)
         intent.putExtra("DECK_NAME", deckName)
+        startActivity(intent)
+    }
+
+    private fun openStudyActivity(deckId: Int) {
+        val intent = Intent(this, StudyActivity::class.java)
+        intent.putExtra("DECK_ID", deckId)
         startActivity(intent)
     }
 
