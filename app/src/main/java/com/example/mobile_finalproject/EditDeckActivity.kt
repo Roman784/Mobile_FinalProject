@@ -23,34 +23,48 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
     private  lateinit var cards: ArrayList<Card>
     private lateinit var cardsContainer: LinearLayout
     private lateinit var scrollView: ScrollView
+    private lateinit var edtDeckName: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_deck_activity)
 
         val deckId = intent.getIntExtra("DECK_ID", -1)
-        val deckName = intent.getStringExtra("DECK_NAME")
 
         cards = arrayListOf()
         cardsContainer = findViewById(R.id.cardsContainer)
         scrollView = findViewById(R.id.scrollView)
+        edtDeckName = findViewById(R.id.edtDeckName)
 
-        val edtDeckName = findViewById<EditText>(R.id.edtDeckName)
         val btnSave = findViewById<Button>(R.id.btnSave)
         val btnAddCard = findViewById<Button>(R.id.btnAddCard)
 
-        edtDeckName.setText(deckName)
-
         btnSave.setOnClickListener {
-            save()
+            save(deckId)
         }
 
         btnAddCard.setOnClickListener {
             createNewCard(deckId)
         }
 
-        //loadCards(deckId)
+        loadDeckName(deckId)
+        loadCards(deckId)
         createFakeCards()
+    }
+
+    private fun loadDeckName(deckId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.getDeck(deckId)
+
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        edtDeckName.setText(response.body()?.name ?: "")
+                    }
+                }
+            } catch (_: Exception) {
+            }
+        }
     }
 
     private fun loadCards(deckId: Int) {
@@ -69,10 +83,9 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
         }
     }
 
-    private fun save() {
+    private fun save(deckId: Int) {
         // TODO: Save on the server.
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        openStudyActivity(deckId)
     }
 
     private fun createNewCard(deckId: Int) {
@@ -108,16 +121,18 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
         }
 
         cardsContainer.addView(itemView)
-
-        scrollView.post {
-            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
-        }
     }
 
     private fun editCard(card: Card) {
         val manager = supportFragmentManager
         val myDialogFragment = EditCardDialog(card)
         myDialogFragment.show(manager, "editCardDialog")
+    }
+
+    private fun openStudyActivity(deckId: Int) {
+        val intent = Intent(this, StudyActivity::class.java)
+        intent.putExtra("DECK_ID", deckId)
+        startActivity(intent)
     }
 
     override fun onReturnValue(card: Card) {
@@ -130,6 +145,10 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
         if (idx >= 0) {
             cards[idx] = card
             createCardViews(cards)
+        }
+
+        scrollView.post {
+            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
         }
     }
 

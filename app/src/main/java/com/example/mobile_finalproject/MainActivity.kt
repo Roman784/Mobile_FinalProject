@@ -35,7 +35,7 @@ class MainActivity : BaseActivity() {
         }
 
         createFakeDecks()
-        //loadDecks()
+        loadDecks()
     }
 
     private fun loadDecks() {
@@ -56,7 +56,7 @@ class MainActivity : BaseActivity() {
 
     private fun createNewDeck() {
         val newId = decks.count() + 1 // TODO: From server.
-        openEditDeckActivity(newId, "")
+        openEditDeckActivity(newId)
     }
 
     private fun createDeckViews(decks: List<Deck>) {
@@ -76,7 +76,7 @@ class MainActivity : BaseActivity() {
         val btnEdit = itemView.findViewById<ImageButton>(R.id.btnPencil)
 
         btnEdit.setOnClickListener {
-            openEditDeckActivity(deck.id, deck.name)
+            openEditDeckActivity(deck.id)
         }
 
         btnOpenDeck.setOnClickListener {
@@ -86,10 +86,9 @@ class MainActivity : BaseActivity() {
         decksContainer.addView(itemView)
     }
 
-    private fun openEditDeckActivity(deckId: Int, deckName: String) {
+    private fun openEditDeckActivity(deckId: Int) {
         val intent = Intent(this, EditDeckActivity::class.java)
         intent.putExtra("DECK_ID", deckId)
-        intent.putExtra("DECK_NAME", deckName)
         startActivity(intent)
     }
 

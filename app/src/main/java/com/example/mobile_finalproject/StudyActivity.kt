@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import com.example.mobile_finalproject.models.Card
 import kotlinx.coroutines.CoroutineScope
@@ -30,6 +31,7 @@ class StudyActivity : BaseActivity() {
 
         val btnNext = findViewById<Button>(R.id.btnNext)
         val btnShowDefinition = findViewById<View>(R.id.btnShowDefinition)
+        val btnPencil = findViewById<ImageButton>(R.id.btnPencil)
 
         btnNext.setOnClickListener {
             switchCard()
@@ -39,7 +41,11 @@ class StudyActivity : BaseActivity() {
             setActiveDefinitionView()
         }
 
-        //loadCards(deckId)
+        btnPencil.setOnClickListener {
+            openEditDeckActivity(deckId)
+        }
+
+        loadCards(deckId)
         createFakeCards()
     }
 
@@ -96,10 +102,9 @@ class StudyActivity : BaseActivity() {
         tvDefinition.text = card.definition
     }
 
-    private fun openEditDeckActivity(deckId: Int, deckName: String) {
+    private fun openEditDeckActivity(deckId: Int) {
         val intent = Intent(this, EditDeckActivity::class.java)
         intent.putExtra("DECK_ID", deckId)
-        intent.putExtra("DECK_NAME", deckName)
         startActivity(intent)
     }
 
