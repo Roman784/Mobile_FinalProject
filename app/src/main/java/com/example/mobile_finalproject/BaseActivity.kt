@@ -9,6 +9,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mobile_finalproject.models.Deck
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -48,26 +53,46 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun setupHeaderFunctionality() {
 
         btnHome.setOnClickListener {
-            openHomeActivity()
+            if (this::class.java != MainActivity::class.java) {
+                openHomeActivity()
+            }
         }
 
         btnPlus.setOnClickListener {
-            addNewDeck()
+            if (this::class.java != EditDeckActivity::class.java) {
+                createNewDeck()
+            }
         }
     }
 
-    private fun openHomeActivity() {
-        if (this::class.java != MainActivity::class.java) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+    protected fun openEditDeckActivity(deckId: Int) {
+        val intent = Intent(this, EditDeckActivity::class.java)
+        intent.putExtra("DECK_ID", deckId)
+        startActivity(intent)
     }
 
-    private fun addNewDeck() {
-        if (this::class.java != EditDeckActivity::class.java) {
-            val intent = Intent(this, EditDeckActivity::class.java)
-            intent.putExtra("DECK_ID", -1)
-            startActivity(intent)
+    protected fun openStudyActivity(deckId: Int) {
+        val intent = Intent(this, StudyActivity::class.java)
+        intent.putExtra("DECK_ID", deckId)
+        startActivity(intent)
+    }
+
+    protected fun openHomeActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun createNewDeck() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.createDeck(Deck(-1, "New deck"))
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        openEditDeckActivity(response.body()?.id ?: -1)
+                    }
+                }
+            } catch (_: Exception) {
+            }
         }
     }
 }

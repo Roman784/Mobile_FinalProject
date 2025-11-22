@@ -52,13 +52,12 @@ class StudyActivity : BaseActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = RetrofitClient.apiService.getCards(deckId)
-
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         cards.addAll(response.body() ?: emptyList())
                         cards.shuffle()
-                        showFirstCard()
                     }
+                    showFirstCard()
                 }
             } catch (_: Exception) {
             }
@@ -88,8 +87,8 @@ class StudyActivity : BaseActivity() {
     private fun showFirstCard() {
         disableDefinitionView()
 
-        if (cards.count() == 0) {
-            tvTerm.text = R.string.cards_list_empty.toString()
+        if (cards.isEmpty()) {
+            tvTerm.setText(R.string.cards_list_empty)
             return
         }
 
@@ -99,21 +98,5 @@ class StudyActivity : BaseActivity() {
     private fun showCard(card: Card) {
         tvTerm.text = card.term
         tvDefinition.text = card.definition
-    }
-
-    private fun openEditDeckActivity(deckId: Int) {
-        val intent = Intent(this, EditDeckActivity::class.java)
-        intent.putExtra("DECK_ID", deckId)
-        startActivity(intent)
-    }
-
-    /////////////////////////////////////////////////////////////////////////////
-
-    private fun createFakeCards() {
-        for (i in 1..30) {
-            cards.add(Card(i, 1, "fake $i", "fake $i"))
-        }
-        cards.shuffle()
-        showFirstCard()
     }
 }

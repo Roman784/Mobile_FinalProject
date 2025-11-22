@@ -10,9 +10,9 @@ namespace Backend.Controllers
     {
         private static List<Card> _cards = new List<Card>
         {
-            new Card { Id = 1, DeckId = 1, Term = "Card 1", Definition = "Definition 1" },
-            new Card { Id = 2, DeckId = 1, Term = "Card 2", Definition = "Definition 2" },
-            new Card { Id = 3, DeckId = 1, Term = "Card 3", Definition = "Definition 3" },
+            new Card { Id = 1, DeckId = 1, Term = "Stale", Definition = "Несвежий" },
+            new Card { Id = 2, DeckId = 1, Term = "Obviously", Definition = "Очевидно" },
+            new Card { Id = 3, DeckId = 1, Term = "Mess", Definition = "Беспорядок" },
             new Card { Id = 4, DeckId = 2, Term = "Card 4", Definition = "Definition 4" },
             new Card { Id = 5, DeckId = 2, Term = "Card 5", Definition = "Definition 5" },
             new Card { Id = 6, DeckId = 4, Term = "Card 6", Definition = "Definition 6" },
@@ -26,12 +26,6 @@ namespace Backend.Controllers
             new Card { Id = 14, DeckId = 1, Term = "Card 14", Definition = "Definition 14" },
             new Card { Id = 15, DeckId = 1, Term = "Card 15", Definition = "Definition 15" },
         };
-
-        [HttpGet]
-        public ActionResult<IEnumerable<Card>> GetAllCards()
-        {
-            return Ok(_cards);
-        }
 
         [HttpGet("{id}")]
         public ActionResult<Card> GetCard(int id)
@@ -62,15 +56,7 @@ namespace Backend.Controllers
         [HttpPost]
         public ActionResult<Card> CreateCard(Card card)
         {
-            if (_cards.Any(c => c.Id == card.Id))
-            {
-                return Conflict($"Карточка с ID {card.Id} уже существует");
-            }
-
-            if (card.Id == 0)
-            {
-                card.Id = _cards.Any() ? _cards.Max(c => c.Id) + 1 : 1;
-            }
+            card.Id = _cards.Any() ? _cards.Max(c => c.Id) + 1 : 1;
 
             _cards.Add(card);
 

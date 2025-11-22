@@ -35,7 +35,10 @@ class EditCardDialog(val card: Card) : DialogFragment() {
                 updateCard()
             }
             .setNegativeButton(R.string.cancel) { dialog, id ->
-                dialog.cancel()
+                if (edtTerm.text.isEmpty() && edtDefinition.text.isEmpty())
+                    deleteCard()
+                else
+                    dialog.cancel()
             }
             .setNeutralButton(R.string.delete) { dialog, id ->
                 deleteCard()

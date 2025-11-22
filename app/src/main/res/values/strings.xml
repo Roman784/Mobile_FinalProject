@@ -4,12 +4,12 @@
     <string name="add_deck">Add deck</string>
     <string name="add_card">Add card</string>
     <string name="save">Save</string>
-    <string name="enter_deck_name">Deck name...</string>
+    <string name="enter_deck_name">Deck name…</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="next">Next</string>
     <string name="cards_list_empty">The list of cards is empty</string>
-    <string name="enter_term">Enter term...</string>
-    <string name="enter_definition">Enter definition...</string>
+    <string name="enter_term">Enter term…</string>
+    <string name="enter_definition">Enter definition…</string>
 </resources>

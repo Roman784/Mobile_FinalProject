@@ -40,7 +40,6 @@ class MainActivity : BaseActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = RetrofitClient.apiService.getDecks()
-
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         decks.addAll(response.body() ?: emptyList())
@@ -53,8 +52,17 @@ class MainActivity : BaseActivity() {
     }
 
     private fun createNewDeck() {
-        val newId = decks.count() + 1 // TODO: From server.
-        openEditDeckActivity(newId)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.createDeck(Deck(-1, "New deck"))
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        openEditDeckActivity(response.body()?.id ?: -1)
+                    }
+                }
+            } catch (_: Exception) {
+            }
+        }
     }
 
     private fun createDeckViews(decks: List<Deck>) {
@@ -82,26 +90,5 @@ class MainActivity : BaseActivity() {
         }
 
         decksContainer.addView(itemView)
-    }
-
-    private fun openEditDeckActivity(deckId: Int) {
-        val intent = Intent(this, EditDeckActivity::class.java)
-        intent.putExtra("DECK_ID", deckId)
-        startActivity(intent)
-    }
-
-    private fun openStudyActivity(deckId: Int) {
-        val intent = Intent(this, StudyActivity::class.java)
-        intent.putExtra("DECK_ID", deckId)
-        startActivity(intent)
-    }
-
-    /////////////////////////////////////////////////////////////////////////////
-
-    private fun createFakeDecks() {
-        for (i in 1..15) {
-            decks.add(Deck(i, "fake $i"))
-        }
-        createDeckViews(decks)
     }
 }

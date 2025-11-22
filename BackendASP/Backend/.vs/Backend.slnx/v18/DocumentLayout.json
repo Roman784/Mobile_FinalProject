@@ -7,12 +7,16 @@
       "RelativeMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\deckscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|c:\\users\\rmnmrn\\desktop\\alllabs\\4\\1\\android\\mobile_finalproject\\backendasp\\backend\\backend\\models\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|solutionrelative:backend\\models\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|c:\\users\\rmnmrn\\desktop\\alllabs\\4\\1\\android\\mobile_finalproject\\backendasp\\backend\\backend\\models\\deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|solutionrelative:backend\\models\\deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|c:\\users\\rmnmrn\\desktop\\alllabs\\4\\1\\android\\mobile_finalproject\\backendasp\\backend\\backend\\controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|solutionrelative:backend\\controllers\\cardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|c:\\users\\rmnmrn\\desktop\\alllabs\\4\\1\\android\\mobile_finalproject\\backendasp\\backend\\backend\\models\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|solutionrelative:backend\\models\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|c:\\users\\rmnmrn\\desktop\\alllabs\\4\\1\\android\\mobile_finalproject\\backendasp\\backend\\backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -25,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|c:\\users\\rmnmrn\\desktop\\alllabs\\4\\1\\android\\mobile_finalproject\\backendasp\\backend\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|solutionrelative:backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|c:\\users\\rmnmrn\\desktop\\alllabs\\4\\1\\android\\mobile_finalproject\\backendasp\\backend\\backend\\models\\deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B5CEE1AB-68C5-FCEC-EA61-653FFB609ED2}|Backend\\Backend.csproj|solutionrelative:backend\\models\\deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,7 +46,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Card.cs",
               "DocumentMoniker": "C:\\Users\\rmnmrn\\Desktop\\AllLabs\\4\\1\\android\\Mobile_FinalProject\\BackendASP\\Backend\\Backend\\Models\\Card.cs",
               "RelativeDocumentMoniker": "Backend\\Models\\Card.cs",
@@ -64,13 +64,14 @@
               "RelativeDocumentMoniker": "Backend\\Controllers\\CardsController.cs",
               "ToolTip": "C:\\Users\\rmnmrn\\Desktop\\AllLabs\\4\\1\\android\\Mobile_FinalProject\\BackendASP\\Backend\\Backend\\Controllers\\CardsController.cs",
               "RelativeToolTip": "Backend\\Controllers\\CardsController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAABZAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAwDkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-21T15:48:21.595Z"
+              "WhenOpened": "2025-11-21T15:48:21.595Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\rmnmrn\\Desktop\\AllLabs\\4\\1\\android\\Mobile_FinalProject\\BackendASP\\Backend\\Backend\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Backend\\Properties\\launchSettings.json",
@@ -82,7 +83,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\rmnmrn\\Desktop\\AllLabs\\4\\1\\android\\Mobile_FinalProject\\BackendASP\\Backend\\Backend\\appsettings.json",
               "RelativeDocumentMoniker": "Backend\\appsettings.json",
@@ -94,7 +95,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\rmnmrn\\Desktop\\AllLabs\\4\\1\\android\\Mobile_FinalProject\\BackendASP\\Backend\\Backend\\Program.cs",
               "RelativeDocumentMoniker": "Backend\\Program.cs",
@@ -112,14 +113,14 @@
               "RelativeDocumentMoniker": "Backend\\Controllers\\DecksController.cs",
               "ToolTip": "C:\\Users\\rmnmrn\\Desktop\\AllLabs\\4\\1\\android\\Mobile_FinalProject\\BackendASP\\Backend\\Backend\\Controllers\\DecksController.cs",
               "RelativeToolTip": "Backend\\Controllers\\DecksController.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBYAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAADwvxoAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-21T08:31:58.877Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "Deck.cs",
               "DocumentMoniker": "C:\\Users\\rmnmrn\\Desktop\\AllLabs\\4\\1\\android\\Mobile_FinalProject\\BackendASP\\Backend\\Backend\\Models\\Deck.cs",
               "RelativeDocumentMoniker": "Backend\\Models\\Deck.cs",
@@ -127,7 +128,8 @@
               "RelativeToolTip": "Backend\\Models\\Deck.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-21T08:31:06.038Z"
+              "WhenOpened": "2025-11-21T08:31:06.038Z",
+              "EditorCaption": ""
             }
           ]
         }

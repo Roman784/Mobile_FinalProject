@@ -24,6 +24,7 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
     private lateinit var cardsContainer: LinearLayout
     private lateinit var scrollView: ScrollView
     private lateinit var edtDeckName: EditText
+    private lateinit var deckName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +39,18 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
 
         val btnSave = findViewById<Button>(R.id.btnSave)
         val btnAddCard = findViewById<Button>(R.id.btnAddCard)
+        val btnTrash = findViewById<ImageButton>(R.id.btnTrash)
 
         btnSave.setOnClickListener {
-            save(deckId)
+            saveDeckName(deckId)
         }
 
         btnAddCard.setOnClickListener {
             createNewCard(deckId)
+        }
+
+        btnTrash.setOnClickListener {
+            deleteDeck(deckId)
         }
 
         loadDeckName(deckId)
@@ -58,7 +64,8 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
 
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        edtDeckName.setText(response.body()?.name ?: "")
+                        deckName = response.body()?.name ?: "New deck"
+                        edtDeckName.setText(deckName)
                     }
                 }
             } catch (_: Exception) {
@@ -82,19 +89,56 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
         }
     }
 
-    private fun save(deckId: Int) {
-        // TODO: Save on the server.
-        openStudyActivity(deckId)
+    private fun deleteDeck(deckId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.deleteDeck(deckId)
+
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        openMainActivity()
+                    }
+                }
+            } catch (_: Exception) {
+            }
+        }
+    }
+
+    private fun saveDeckName(deckId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val newDeckName = edtDeckName.text.toString()
+                if (!newDeckName.isEmpty()) deckName = newDeckName
+
+                val response = RetrofitClient.apiService.updateDeck(deckId, Deck(deckId, deckName))
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        openStudyActivity(deckId)
+                    }
+                }
+            } catch (_: Exception) {
+            }
+        }
     }
 
     private fun createNewCard(deckId: Int) {
-        val newId = cards.count() + 1 // TODO: From server.
-        val card = Card(id = newId, deckId = deckId, term = "", definition = "")
-        cards.add(card)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.createCard(Card(-1, deckId, "", ""))
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        val newId = response.body()?.id ?: -1
+                        val card = Card(id = newId, deckId = deckId, term = "", definition = "")
+                        cards.add(card)
 
-        val manager = supportFragmentManager
-        val myDialogFragment = EditCardDialog(card)
-        myDialogFragment.show(manager, "editCardDialog")
+                        val manager = supportFragmentManager
+                        val myDialogFragment = EditCardDialog(card)
+                        myDialogFragment.show(manager, "editCardDialog")
+                    }
+                }
+            } catch (_: Exception) {
+            }
+        }
     }
 
     private fun createCardViews(cards: List<Card>) {
@@ -128,9 +172,8 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
         myDialogFragment.show(manager, "editCardDialog")
     }
 
-    private fun openStudyActivity(deckId: Int) {
-        val intent = Intent(this, StudyActivity::class.java)
-        intent.putExtra("DECK_ID", deckId)
+    private fun openMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
@@ -140,21 +183,43 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
             return
         }
 
-        val idx = getCardIndexById(card.id)
-        if (idx >= 0) {
-            cards[idx] = card
-            createCardViews(cards)
-        }
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val newDeckName = edtDeckName.text.toString()
+                if (!newDeckName.isEmpty()) deckName = newDeckName
 
-        scrollView.post {
-            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+                val response = RetrofitClient.apiService.updateCard(card.id, card)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        val idx = getCardIndexById(card.id)
+                        if (idx >= 0) {
+                            cards[idx] = card
+                            createCardViews(cards)
+                        }
+
+                        scrollView.post {
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
+                        }
+                    }
+                }
+            } catch (_: Exception) {
+            }
         }
     }
 
     override fun onDelete(card: Card) {
-        // TODO: Delete from server.
-        cards.removeIf { c -> c.id == card.id }
-        createCardViews(cards)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.deleteCard(card.id)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        cards.removeIf { c -> c.id == card.id }
+                        createCardViews(cards)
+                    }
+                }
+            } catch (_: Exception) {
+            }
+        }
     }
 
     private fun getCardIndexById(id: Int): Int {
@@ -166,14 +231,5 @@ class EditDeckActivity : BaseActivity(), EditCardDialogListener {
             }
         }
         return -1
-    }
-
-    /////////////////////////////////////////////////////////////////////////////
-
-    private fun createFakeCards() {
-        for (i in 1..30) {
-            cards.add(Card(i, 1, "fake $i", "fake $i"))
-        }
-        createCardViews(cards)
     }
 }
