@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -7,77 +8,97 @@ namespace Backend.Controllers
     [Route("api/[controller]")]
     public class DecksController : ControllerBase
     {
-        private static List<Deck> _decks = new List<Deck>
+        private readonly DecksContext _context;
+
+        public DecksController(DecksContext context)
         {
-            new Deck { Id = 1, Name = "Test Deck 1" },
-            new Deck { Id = 2, Name = "Test Deck 2" },
-            new Deck { Id = 3, Name = "Test Deck 3" },
-            new Deck { Id = 4, Name = "Test Deck 4" },
-            new Deck { Id = 5, Name = "Test Deck 5" },
-            new Deck { Id = 6, Name = "Test Deck 6" },
-            new Deck { Id = 7, Name = "Test Deck 7" },
-            new Deck { Id = 8, Name = "Test Deck 8" },
-            new Deck { Id = 9, Name = "Test Deck 9" },
-            new Deck { Id = 10, Name = "Test Deck 10" },
-            new Deck { Id = 11, Name = "Test Deck 11" },
-            new Deck { Id = 12, Name = "Test Deck 12" }
-        };
+            _context = context;
+        }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Deck>> GetDecks()
+        public async Task<ActionResult<IEnumerable<Deck>>> GetDecks()
         {
-            return Ok(_decks);
+            var decks = await _context.Decks.ToListAsync();
+            return Ok(decks);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Deck> GetDeck(int id)
+        public async Task<ActionResult<Deck>> GetDeck(int id)
         {
-            var deck = _decks.FirstOrDefault(u => u.Id == id);
+            var deck = await _context.Decks.FindAsync(id);
 
             if (deck == null)
             {
-                return NotFound();
+                return NotFound($"Колода с ID {id} не найдена");
             }
 
             return Ok(deck);
         }
 
         [HttpPost]
-        public ActionResult<Deck> CreateDeck(Deck deck)
+        public async Task<ActionResult<Deck>> CreateDeck(Deck deck)
         {
-            deck.Id = _decks.Max(u => u.Id) + 1;
-            _decks.Add(deck);
+            deck.Id = 0;
+
+            _context.Decks.Add(deck);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetDeck), new { id = deck.Id }, deck);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateDeck(int id, Deck updatedDeck)
+        public async Task<IActionResult> UpdateDeck(int id, Deck updatedDeck)
         {
-            var deck = _decks.FirstOrDefault(u => u.Id == id);
+            if (id != updatedDeck.Id)
+            {
+                return BadRequest("ID в пути не совпадает с ID в теле запроса");
+            }
 
+            var deck = await _context.Decks.FindAsync(id);
             if (deck == null)
             {
-                return NotFound();
+                return NotFound($"Колода с ID {id} не найдена");
             }
 
             deck.Name = updatedDeck.Name;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DeckExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteDeck(int id)
+        public async Task<IActionResult> DeleteDeck(int id)
         {
-            var deck = _decks.FirstOrDefault(u => u.Id == id);
-
+            var deck = await _context.Decks.FindAsync(id);
             if (deck == null)
             {
-                return NotFound();
+                return NotFound($"Колода с ID {id} не найдена");
             }
 
-            _decks.Remove(deck);
+            _context.Decks.Remove(deck);
+            await _context.SaveChangesAsync();
+
             return NoContent();
+        }
+
+        private bool DeckExists(int id)
+        {
+            return _context.Decks.Any(e => e.Id == id);
         }
     }
 }

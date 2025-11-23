@@ -1,10 +1,19 @@
-﻿namespace Backend.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace Backend.Models;
+
+public partial class Card
 {
-    public class Card
-    {
-        public int Id { get; set; }
-        public int DeckId { get; set; }
-        public string Term { get; set; } = string.Empty;
-        public string Definition { get; set; } = string.Empty;
-    }
+    public int Id { get; set; }
+
+    public int DeckId { get; set; }
+
+    public string Term { get; set; } = null!;
+
+    public string Definition { get; set; } = null!;
+
+    public DateTime? CreatedAt { get; set; }
+
+    public virtual Deck Deck { get; set; } = null!;
 }

@@ -494,6 +494,16 @@
           },
           "definition": {
             "type": "string"
+          },
+          "createdAt": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "deck": {
+            "$ref": "#/components/schemas/Deck"
           }
         }
       },
@@ -510,6 +520,19 @@
           },
           "name": {
             "type": "string"
+          },
+          "createdAt": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "cards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Card"
+            }
           }
         }
       },

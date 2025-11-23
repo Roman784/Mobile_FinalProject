@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -8,29 +9,17 @@ namespace Backend.Controllers
 
     public class CardsController : ControllerBase
     {
-        private static List<Card> _cards = new List<Card>
+        private readonly DecksContext _context;
+
+        public CardsController(DecksContext context)
         {
-            new Card { Id = 1, DeckId = 1, Term = "Stale", Definition = "Несвежий" },
-            new Card { Id = 2, DeckId = 1, Term = "Obviously", Definition = "Очевидно" },
-            new Card { Id = 3, DeckId = 1, Term = "Mess", Definition = "Беспорядок" },
-            new Card { Id = 4, DeckId = 2, Term = "Card 4", Definition = "Definition 4" },
-            new Card { Id = 5, DeckId = 2, Term = "Card 5", Definition = "Definition 5" },
-            new Card { Id = 6, DeckId = 4, Term = "Card 6", Definition = "Definition 6" },
-            new Card { Id = 7, DeckId = 1, Term = "Card 7", Definition = "Definition 7" },
-            new Card { Id = 8, DeckId = 1, Term = "Card 8", Definition = "Definition 8" },
-            new Card { Id = 9, DeckId = 1, Term = "Card 9", Definition = "Definition 9" },
-            new Card { Id = 10, DeckId = 1, Term = "Card 10", Definition = "Definition 10" },
-            new Card { Id = 11, DeckId = 1, Term = "Card 11", Definition = "Definition 11" },
-            new Card { Id = 12, DeckId = 1, Term = "Card 12", Definition = "Definition 12" },
-            new Card { Id = 13, DeckId = 1, Term = "Card 13", Definition = "Definition 13" },
-            new Card { Id = 14, DeckId = 1, Term = "Card 14", Definition = "Definition 14" },
-            new Card { Id = 15, DeckId = 1, Term = "Card 15", Definition = "Definition 15" },
-        };
+            _context = context;
+        }
 
         [HttpGet("{id}")]
-        public ActionResult<Card> GetCard(int id)
+        public async Task<ActionResult<Card>> GetCard(int id)
         {
-            var card = _cards.FirstOrDefault(c => c.Id == id);
+            var card = await _context.Cards.FindAsync(id);
 
             if (card == null)
             {
@@ -41,9 +30,11 @@ namespace Backend.Controllers
         }
 
         [HttpGet("deck/{deckId}")]
-        public ActionResult<IEnumerable<Card>> GetCardsByDeck(int deckId)
+        public async Task<ActionResult<IEnumerable<Card>>> GetCardsByDeck(int deckId)
         {
-            var cards = _cards.Where(c => c.DeckId == deckId).ToList();
+            var cards = await _context.Cards
+                .Where(c => c.DeckId == deckId)
+                .ToListAsync();
 
             if (!cards.Any())
             {
@@ -54,20 +45,25 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Card> CreateCard(Card card)
+        public async Task<ActionResult<Card>> CreateCard(Card card)
         {
-            card.Id = _cards.Any() ? _cards.Max(c => c.Id) + 1 : 1;
+            card.Id = 0;
 
-            _cards.Add(card);
+            _context.Cards.Add(card);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetCard), new { id = card.Id }, card);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateCard(int id, Card updatedCard)
+        public async Task<IActionResult> UpdateCard(int id, Card updatedCard)
         {
-            var card = _cards.FirstOrDefault(c => c.Id == id);
+            if (id != updatedCard.Id)
+            {
+                return BadRequest("ID в пути не совпадает с ID в теле запроса");
+            }
 
+            var card = await _context.Cards.FindAsync(id);
             if (card == null)
             {
                 return NotFound($"Карточка с ID {id} не найдена");
@@ -77,20 +73,23 @@ namespace Backend.Controllers
             card.Definition = updatedCard.Definition;
             card.DeckId = updatedCard.DeckId;
 
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteCard(int id)
+        public async Task<IActionResult> DeleteCard(int id)
         {
-            var card = _cards.FirstOrDefault(c => c.Id == id);
-
+            var card = await _context.Cards.FindAsync(id);
             if (card == null)
             {
                 return NotFound($"Карточка с ID {id} не найдена");
             }
 
-            _cards.Remove(card);
+            _context.Cards.Remove(card);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
     }
