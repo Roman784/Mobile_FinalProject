@@ -1,6 +1,7 @@
 package com.example.mobile_finalproject
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -9,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.example.mobile_finalproject.models.Deck
+import com.example.mobile_finalproject.services.NotificationService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,9 +24,22 @@ abstract class BaseActivity : AppCompatActivity() {
     protected lateinit var btnHome: ImageButton
     protected lateinit var btnPlus: ImageButton
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        checkNotificationPermission()
+    }
+
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
         setupHeader()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        val serviceIntent = Intent(this, NotificationService::class.java)
+        startService(serviceIntent)
     }
 
     private fun setupHeader() {
@@ -43,11 +59,19 @@ abstract class BaseActivity : AppCompatActivity() {
 
         contentView?.addView(headerView, 0, params)
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            headerView.elevation = 8f
-        }
+        headerView.elevation = 8f
 
         setupHeaderFunctionality()
+    }
+
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                0
+            )
+        }
     }
 
     protected fun setupHeaderFunctionality() {

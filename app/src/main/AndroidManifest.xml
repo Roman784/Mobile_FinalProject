@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,10 @@
         android:theme="@style/Theme.Mobile_FinalProject"
         android:usesCleartextTraffic="true">
 
+        <service
+            android:name=".services.NotificationService"
+            android:enabled="true"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -24,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".EditDeckActivity" />
         <activity android:name=".StudyActivity" />
     </application>

@@ -9,14 +9,15 @@
     android:background="@color/background">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:importantForAccessibility="no"
-        app:layout_constraintBottom_toTopOf="@id/btnAddDeck"
-        app:layout_constraintTop_toTopOf="parent"
         android:paddingTop="@dimen/first_offset"
-        android:paddingBottom="24dp">
+        android:paddingBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@id/btnAddDeck"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/decksContainer"

@@ -9,8 +9,8 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import com.example.mobile_finalproject.models.Card
 import com.example.mobile_finalproject.models.Deck
+import com.example.mobile_finalproject.services.NotificationService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
