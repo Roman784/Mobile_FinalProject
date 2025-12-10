@@ -47,10 +47,12 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Card>> CreateCard(Card card)
         {
+            Console.WriteLine("create");
             card.Id = 0;
 
             _context.Cards.Add(card);
             await _context.SaveChangesAsync();
+            Console.WriteLine(card.Id);
 
             return CreatedAtAction(nameof(GetCard), new { id = card.Id }, card);
         }
@@ -58,6 +60,7 @@ namespace Backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCard(int id, Card updatedCard)
         {
+            Console.WriteLine(id);
             if (id != updatedCard.Id)
             {
                 return BadRequest("ID в пути не совпадает с ID в теле запроса");

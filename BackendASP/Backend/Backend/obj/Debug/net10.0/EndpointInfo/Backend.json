@@ -503,7 +503,14 @@
             "format": "date-time"
           },
           "deck": {
-            "$ref": "#/components/schemas/Deck"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/Deck"
+              }
+            ]
           }
         }
       },

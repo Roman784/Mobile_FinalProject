@@ -15,5 +15,5 @@ public partial class Card
 
     public DateTime? CreatedAt { get; set; }
 
-    public virtual Deck Deck { get; set; } = null!;
+    public Deck? Deck { get; set; }
 }
